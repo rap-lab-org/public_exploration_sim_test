@@ -15,7 +15,7 @@ You need to develop a ROS1 package, which is a self-contained unit in the Robot 
 
 ## Project Structure
 
-The repository is organized as follows:
+The repository is organized as follows. Each directory under `src` is a package in ROS.
 
 ```
 .
@@ -30,10 +30,10 @@ The repository is organized as follows:
     └── trajectory_tracker
 ```
 
-You will implement your exploration algorithm under:
+You will implement your exploration algorithm as a package under
 
 ```
-src/explorer/
+src/explorer/ # you need to make this directory by yourself.
 ```
 
 ## Interfaces
