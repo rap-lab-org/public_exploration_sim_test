@@ -1,14 +1,22 @@
 # Exploration Test
 
-Hi, all! Welcome to the test. You are required to work with this framework and develop an exploration algorithm. All development is under `ROS1 Noetic`, please make sure you can work with it.
+Hi all! Welcome to the exploration test. Your task is to develop an exploration algorithm using the provided framework.
 
-In brief, **please develop an efficient exploration method under the directory `./src/explorer`, which is able to lead single robot to explore the whole environment.**
+All development must be done in **ROS1 Noetic**. Please ensure that your environment is properly set up for ROS Noetic before proceeding.
 
-Below are some further illustrations.
+## Objective
 
-## Module
+You are required to develop an efficient exploration package named **`explorer`** that enables a single robot to fully explore an unknown environment.
 
-The repo is organized as follows.
+
+## Basic Knowledge of ROS
+
+You need to develop a ROS1 package, which is a self-contained unit in the Robot Operating System (ROS) that includes source code, configuration, and dependencies. In ROS, nodes, which are basic units to perform specific function, communicate by publishing and subscribing to topics, which are named channels carrying messages. A node advertises a topic when it sends messages, and subscribes to a topic to receive messages from other nodes. For example, this exploration package subscribes to the robot’s odometry (/agv1/odom) and map (/agv_map) topics to perceive the environment, and publishes target goals to /agv1/goal to command the robot’s movement. This pub-sub mechanism enables modular and flexible robot control.
+
+## Project Structure
+
+The repository is organized as follows:
+
 ```
 .
 ├── README.md
@@ -22,19 +30,26 @@ The repo is organized as follows.
     └── trajectory_tracker
 ```
 
-There are several modules, including `local_planner`, `map_builder`, `env`, `odom_manager`. 
+You will implement your exploration algorithm under:
 
-**You are required to develop an exploration method under the directory `./src/explorer`, which is able to lead single robot to explore the whole environment.**
+```
+src/explorer/
+```
 
 ## Interfaces
 
-Here listed some interfaces you may need.
-```
-map_topic: /agv_map
-robot_odom_topic: /agv1/odom
-target_goal_topic: /agv1/goal
-```
+The following ROS topics are available and may be useful for your implementation:
 
-## Efficiency Requirement
+* **Map topic**: `/agv_map`
+* **Odometry topic**: `/agv1/odom`
+* **Goal publishing topic**: `/agv1/goal`
 
-You are required to write an efficient algorithm such that robot is able  accomplish the exploration task within 3 minutes.
+Make sure to correctly subscribe to and publish on these topics to interact with the system.
+
+## Performance Requirement
+
+Your algorithm must be **efficient enough to complete the full environment exploration within 3 minutes**.
+
+---
+
+Good luck, and we look forward to seeing your solution!
