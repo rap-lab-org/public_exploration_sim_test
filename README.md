@@ -6,7 +6,7 @@ All development must be done in **ROS1 Noetic**. Please ensure that your environ
 
 ## Objective
 
-You are required to develop an efficient exploration package named **`explorer`** that enables a single robot to fully explore an unknown environment.
+You are required to develop an efficient exploration package named **`explorer`** that enables a single robot to fully explore an unknown environment. **You should not change dynamic limits.**
 
 
 ## Basic Knowledge of ROS
