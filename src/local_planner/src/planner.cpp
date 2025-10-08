@@ -94,9 +94,8 @@ void PrimitivePlanner::timerCallback(const ros::TimerEvent &) {
   double final_y = r.discrete_path.back().y;
   double final_dist = std::hypot(final_x - tx, final_y - ty);
 
- 
   // 打印距离信息（无论是否满足 < 0.5）
-  //ROS_INFO("[PrimitivePlanner] Distance to goal: %.2f meters", final_dist);
+  // ROS_INFO("[PrimitivePlanner] Distance to goal: %.2f meters", final_dist);
 
   if (final_dist < 0.8) {
     nav_msgs::Path final_path;
@@ -113,7 +112,8 @@ void PrimitivePlanner::timerCallback(const ros::TimerEvent &) {
     final_path.poses.push_back(final_pose);
     r.local_path_pub.publish(final_path);
 
-    ROS_INFO_ONCE("[PrimitivePlanner] Close to goal. Directly sending final goal pose.");
+    ROS_INFO_ONCE(
+        "[PrimitivePlanner] Close to goal. Directly sending final goal pose.");
     return;
   }
 
@@ -121,7 +121,7 @@ void PrimitivePlanner::timerCallback(const ros::TimerEvent &) {
                     r.current_pose.orientation.z, r.current_pose.orientation.w);
   double roll, pitch, yaw;
   tf2::Matrix3x3(q).getRPY(roll, pitch, yaw);
-  //ROS_INFO_STREAM("x: " << tx << " y: " << ty << " yaw: " << yaw);
+  // ROS_INFO_STREAM("x: " << tx << " y: " << ty << " yaw: " << yaw);
   double distance_to_current_target = std::hypot(tx - target_x, ty - target_y);
   if (distance_to_current_target < 2 &&
       r.target_index < r.discrete_path.size() - 1) {
@@ -168,10 +168,10 @@ void PrimitivePlanner::timerCallback(const ros::TimerEvent &) {
     // ====== 第一步：路径旋转 + 坐标变换 ======
     for (const auto &pt : path.points) {
       pcl::PointXYZ pt_rotated(pt.x * std::cos(extra_rotation_rad) -
-                                  pt.y * std::sin(extra_rotation_rad),
-                              pt.x * std::sin(extra_rotation_rad) +
-                                  pt.y * std::cos(extra_rotation_rad),
-                              pt.z);
+                                   pt.y * std::sin(extra_rotation_rad),
+                               pt.x * std::sin(extra_rotation_rad) +
+                                   pt.y * std::cos(extra_rotation_rad),
+                               pt.z);
 
       pcl::PointXYZ pt_world = transformPoint(pt_rotated, yaw, tx, ty);
       transformed_points.push_back(pt_world);
@@ -198,7 +198,6 @@ void PrimitivePlanner::timerCallback(const ros::TimerEvent &) {
           break;
       }
 
-     
       transformed_points = truncated_points;
     }
 
@@ -299,7 +298,7 @@ void PrimitivePlanner::pathCallback(const nav_msgs::Path::ConstPtr &msg) {
   r.a_star_path = *msg;
   r.target_index = 0;
   for (int i = 0; i < msg->poses.size(); i++) {
-    if (6 * (i + 1) >= msg->poses.size()) {
+    if (3 * (i + 1) >= msg->poses.size()) {
       r.discrete_path.push_back(msg->poses.back().pose.position);
       break;
     }
@@ -374,8 +373,6 @@ STATE PrimitivePlanner::isInFov(double robot_x, double robot_y, double yaw,
   ROS_INFO_STREAM("Normalized yaw: " << yaw << " rad");
   ROS_INFO_STREAM("Normalized goal_angle: " << goal_angle << " rad");
   ROS_INFO_STREAM("Raw angle diff: " << angle_diff << " rad");
-
-
 
   // Check if goal is in FOV
   bool in_fov;
