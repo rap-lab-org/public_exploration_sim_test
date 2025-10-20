@@ -48,7 +48,7 @@ Make sure to correctly subscribe to and publish on these topics to interact with
 
 ## Performance Requirement
 
-Your algorithm must be **efficient enough to complete the full environment exploration within 3 minutes**.
+Your algorithm must be **efficient enough to complete the full environment exploration within 2 minutes 40 seconds**.
 
 ---
 
