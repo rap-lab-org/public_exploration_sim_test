@@ -116,6 +116,10 @@ Your solution is scored on:
 * Only use the topics listed above. Do not read map files (meshes, `.ply`, `.world`) or Gazebo ground truth.
 * Robots may share all information with each other, so a central planner is fine.
 
+## Contact
+
+If you have problems with the environment (setup, build or simulation), contact tang_jingfan@sjtu.edu.cn.
+
 ---
 
 Good luck, and we look forward to seeing your solution!
