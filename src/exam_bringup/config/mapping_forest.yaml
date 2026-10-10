@@ -1,0 +1,13 @@
+octomap_server:
+  ros__parameters:
+    resolution: 0.5
+    frame_id: map
+    # base_frame_id is only used for ground filtering (off); there is no single "vehicle" frame with N robots.
+    occupancy_min_z: 0.0
+    occupancy_max_z: 1.0
+    latch: false
+    sensor_model.max_range: 22.0
+    sensor_model.hit: 1.0
+    sensor_model.miss: 0.45
+    sensor_model.max: 1.0
+    sensor_model.min: 0.2

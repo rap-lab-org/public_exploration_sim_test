@@ -1,0 +1,8 @@
+<launch>
+
+  <node pkg="octomap_server" exec="octomap_server_node" name="octomap_server" output="screen">
+    <param from="$(find-pkg-share exam_bringup)/config/mapping_tunnel.yaml" />
+    <remap from="cloud_in" to="/team/sensor_scan" />
+  </node>
+
+</launch>

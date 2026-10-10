@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>rch_benchmark</name>
+  <version>0.1.0</version>
+  <description>Offline correctness and optimality-bound benchmark for the RCH solver in the explorer package.</description>
+  <maintainer email="tangjingfan@gmail.com">jingfan</maintainer>
+  <license>BSD</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>explorer</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

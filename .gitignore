@@ -44,3 +44,6 @@
 .catkin_workspace
 build
 devel
+install
+log
+exam_results
