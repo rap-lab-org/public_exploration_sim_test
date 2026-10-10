@@ -30,7 +30,7 @@ On small instances it compares your makespan with the exact optimum and checks t
 
 Use your RCH solver to coordinate the 3 robots during exploration: extract exploration targets from the team map, compute travel costs between robots and targets on the map, solve, and send each robot along its route.
 
-A shared map of the whole team is provided (an `octomap_server` fed by every robot's lidar). Target extraction, global path planning and turning routes into waypoints are up to you.
+A shared 2D map of the whole team is provided on `/projected_map`, so you do not need to process lidar scans yourself. Target extraction, global path planning and turning routes into waypoints are up to you.
 
 ## Project Structure
 
@@ -81,23 +81,15 @@ Useful launch arguments:
 
 ## Interfaces
 
-All positions are in the shared global `map` frame. For each robot `i` in 0, 1, 2:
+All positions are in the shared global `map` frame. Your explorer only needs these topics:
 
 | Topic | Type | Direction |
 | --- | --- | --- |
-| `/robot_i/state_estimation` | `nav_msgs/Odometry` | subscribe: robot pose |
-| `/robot_i/registered_scan` | `sensor_msgs/PointCloud2` | subscribe: lidar points in `map` |
-| `/robot_i/terrain_map` | `sensor_msgs/PointCloud2` | subscribe: local terrain, intensity = height above ground |
-| `/robot_i/way_point` | `geometry_msgs/PointStamped` | **publish**: goal for the local planner |
+| `/projected_map` | `nav_msgs/OccupancyGrid` | subscribe: team map (0.5 m cells), built from the lidar of all robots |
+| `/robot_i/state_estimation` | `nav_msgs/Odometry` | subscribe: pose of robot `i` (0, 1, 2) |
+| `/robot_i/way_point` | `geometry_msgs/PointStamped` | **publish**: goal for robot `i`'s local planner |
 
-The team map is shared by all robots:
-
-| Topic | Type | Meaning |
-| --- | --- | --- |
-| `/projected_map` | `nav_msgs/OccupancyGrid` | 2D map (0.5 m cells) projected from obstacles between `occupancy_min_z` and `occupancy_max_z` |
-| `/octomap_binary`, `/octomap_full` | `octomap_msgs/Octomap` | 3D occupancy map (0.5 m voxels) |
-
-The mapping parameters for each world are in `src/exam_bringup/config/mapping_<world>.yaml`.
+The map is built by an `octomap_server` from obstacles between `occupancy_min_z` and `occupancy_max_z`; the parameters for each world are in `src/exam_bringup/config/mapping_<world>.yaml`.
 
 **Note:** the local planner only looks about 4 m around the robot and does not plan around walls. If you send a far waypoint behind an obstacle, the robot will get stuck. Send intermediate waypoints along a global path.
 
